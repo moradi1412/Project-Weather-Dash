@@ -1,7 +1,17 @@
+*{
+    box-sizing: border-box;
+}
+
+
 header {
     padding: 2px; 
     background-color: hsla(197, 87%, 43%, 0.3);
     color: rgb(255, 255, 255);
     text-align: center;
 }
+
+.card-body {
+    display: block;
+}
+
 

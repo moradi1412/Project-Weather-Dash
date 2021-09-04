@@ -23,28 +23,28 @@
         <div class="row">      
             <div class="col-12 col-md-4">
                 <div class="card">
-                    <h3 class="card-header">Search for a city</h3>
-                    <input type="text" placeholder="enter the name of the city" name="cityname" id="cityname"
-                        autofocus="true" class="form-input">
-                    <button type="submit" class="btn btn-primary">search</button>
+                    <h3 class="card-header">Search by City</h3>
+                     <form id="city-form" class="card-body">
+                        <label for="cityname" class="form-labul">City Name: </label>
+                        <input id="cityname"  type="text" placeholder=" the name of the city" name="cityname" autofocus="true" class="form-input">
+                        <button id="submit" type="submit" class="btn btn-primary">search</button>
+                     </form>
                 </div>
             </div>
-        <div class="col-12 col-md-8 ">
-            <div class="row border border-dark">
-                <h3 class="city-name mb-1 mt-2 bolder" id="current-city"></h3>
-                <p>Temperature:<span class="current" id="temperature"></span></p>
-                <p>Humidity:<span class="current" id="humidity"></span></p>
-                <p>Wind Speed:<span class="current" id="wind-speed"></span></p>
-                <p>UV index:<span class="current bg-danger rounded py-2 px-2 text-white" id="uv-index"></span></p>
-            </div>
-            <div class="row"> 
-                <h3 class="mt-2 bolder"> 5 - Day Forecast: </h3>
-            </div>
 
-        
+            <div class="col-12 col-md-8 ">
+                <div class="row border border-dark">
+                    <h3 class="city-name mb-1 mt-2 bolder" id="current-city"></h3>
+                    <p>Temperature:   <span class="current" id="temperature"></span></p>
+                    <p>Humidity:      <span class="current" id="humidity"></span></p>
+                    <p>Wind Speed:    <span class="current" id="wind-speed"></span></p>
+                    <p>UV index:      <span class="current bg-danger rounded py-2 px-2 text-white" id="uv-index"></span></p>
+                </div>
+                <div class="row"> 
+                    <h3 class="mt-2 bolder"> 5 - Day Forecast: </h3>
+                </div>
+            </div>
         </div>
-
-    </div>
     </div>
 <script src="./assets/Java/homepage.js"></script>
 </body>
