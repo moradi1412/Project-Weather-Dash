@@ -5,6 +5,8 @@ var currentWindSpeed = document.getElementById ("wind-speed");
 var currentHumidity = document.getElementById ("humidity"); 
 var uvIndex = document.getElementById ("uv-index"); 
 
+const APIKey = "fd0ea7baffebc408619b7fb5206660c9"; 
+ 
 
 var getCityName = function (event) {
     event.preventDefault(); 
@@ -16,16 +18,15 @@ var getCityName = function (event) {
         alert ("please enter name of a city")
     } 
 }; 
-
-
-
-var getCurrentWeather = function (cityName) {      
-   
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityName +"&units=imperial&appid=fd0ea7baffebc408619b7fb5206660c9")
+var getCurrentWeather = function (cityName) { 
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityName +"&units=imperial&appid=" + APIKey)
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
                     displayCurrent(data);
+                    var lat = data.coord.lat; 
+                    var lon = data.coord.lon; 
+                    getUvIndex(lat,lon); 
                 });
             } else {
                 alert('Error: GitHub User Not Found');
@@ -36,6 +37,23 @@ var getCurrentWeather = function (cityName) {
         });
 };
 
+var getUvIndex = function (lat, lon) { 
+    console.log(lat);
+    console.log(lon);
+    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey )
+    .then(function (response) {
+        if (response.ok) {
+            response.json().then(function (data) {
+                var currentUV = data.current.uvi; 
+                uvIndex.innerHTML = currentUV; 
+
+            })
+        }
+    })
+}; 
+
+
+
 
 submitButtom.addEventListener("submit", getCityName); 
 
@@ -44,7 +62,6 @@ var displayCurrent = function (data){
     var currentTemp = data.main.temp ;
     var currentHumd = data.main.humidity; 
     var currentWind = data.wind.speed; 
-    
     currentTempEL.innerHTML = currentTemp + " F";
     currentHumidity.innerHTML = currentHumd + " %"; 
     currentWindSpeed.innerHTML = currentWind + " MPH"; 
