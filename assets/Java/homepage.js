@@ -4,7 +4,7 @@ var currentTempEL = document.getElementById("temperature");
 var currentWindSpeed = document.getElementById ("wind-speed"); 
 var currentHumidity = document.getElementById ("humidity"); 
 var uvIndex = document.getElementById ("uv-index"); 
-var forCastEL = document.getElementById("forcast"); 
+var foreCastEl = document.getElementById("foreCast"); 
 
 
 const APIKey = "fd0ea7baffebc408619b7fb5206660c9"; 
@@ -15,8 +15,7 @@ var getCityName = function (event) {
     var cityName = document.querySelector("#cityname").value; 
 
     if (cityName) {
-        getCurrentWeather(cityName); 
-        
+        getCurrentWeather(cityName);         
     } else {
         alert ("please enter name of a city")
     } 
@@ -60,24 +59,41 @@ var fiveDayforecase = function (lat, lon) {
     .then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
-                var Temp = data.daily[0].temp.day ;
-                var Humd = data.daily[0].humidity; 
-                var Wind = data.daily[0].wind_speed;  
-
-console.log (data);
-              console.log(Temp, Humd, Wind);
-              
-            
-
-
-            
-      
-})
+                displayFive(data); 
+            })
         }
     })};
 
 
+var displayFive = function (data) { 
+    console.log(data); 
+    for (let i = 0; i < 5 ; i++) {
+    var fiveDaysEl = document.createElement("div"); 
+    fiveDaysEl.classList = "col-md-2 card"; 
 
+    var Tempture = document.createElement("span"); 
+    Tempture.classList = "card-body text center"; 
+    Tempture.textContent ="Temperature :  " +  data.daily[i].temp.day + "  F"; 
+    fiveDaysEl.appendChild(Tempture);
+
+    var windSpeed = document.createElement("span"); 
+    windSpeed.classList = "card-body text center"; 
+    windSpeed.textContent ="Wind-Speed :  " +  data.daily[i].wind_speed + "  MPH"; 
+    fiveDaysEl.appendChild(windSpeed); 
+    
+
+    var Humidity = document.createElement("span"); 
+    Humidity.classList = "card-body text center"; 
+    Humidity.textContent ="Humidity :  " +  data.daily[i].humidity + "  %"; 
+    fiveDaysEl.appendChild(Humidity);
+          
+
+    foreCastEl.appendChild(fiveDaysEl);
+     
+    
+   
+}
+};
 
 submitButtom.addEventListener("submit", getCityName); 
 
