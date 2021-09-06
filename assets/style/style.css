@@ -23,3 +23,7 @@ header {
 .currentImg {
    max-width: max-content;
 }
+
+.searchHistory {
+    display: block;
+}

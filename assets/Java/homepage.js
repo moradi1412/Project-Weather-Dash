@@ -20,11 +20,11 @@ var getCityName = function (event) {
     if (cityName) {
         getCurrentWeather(cityName);  
         cities.push(cityName); 
+        saveSearch();
     } else {
         alert ("please enter name of a city")
     } 
-    saveSearch();  
-    displaySearchHistory(); 
+      
 }; 
 
 var saveSearch = function (){
@@ -44,11 +44,11 @@ var getCurrentWeather = function (cityName) {
                     fiveDayforecase(lat,lon);
                 });
             } else {
-                alert('Error: GitHub User Not Found');
+                alert('city no found');
             }
         })
         .catch(function (error) {
-            alert("Unable to connect to GitHub");
+            alert("unable to connect ");
         });
 };
 
@@ -136,22 +136,20 @@ var displayFive = function (data) {
 };
 
 var displaySearchHistory = function () { 
-
     var citiesName = localStorage.getItem("cities"); 
     var citynames = JSON.parse(citiesName); 
     console.log(citynames); 
-
     for (let i = 0; i < citynames.length; i++) {
-
         var searchHistoryEl = document.createElement('button'); 
-        searchHistoryEl.classList = "btn-light";
+        searchHistoryEl.classList = "btn-light searchHistory";
         searchHistoryEl.setAttribute ("type", "submit"); 
         searchHistoryEl.textContent = citynames[i]; 
-        searchHistory.appendChild(searchHistoryEl);
-        console.log(searchHistoryEl);
-        
+        searchHistory.appendChild(searchHistoryEl);        
     }  
 }; 
+
+
+displaySearchHistory();
 
 
 submitButtom.addEventListener("submit", getCityName); 
