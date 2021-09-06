@@ -79,8 +79,13 @@ var displayFive = function (data) {
     var new_date = document.createElement("span"); 
     new_date.classList= "card body"; 
     new_date.textContent = moment.unix(data.daily[i + 1 ].dt).format("MMM D, YYYY");
-  
     fiveDaysEl.appendChild(new_date);
+
+    var weatherImage = document.createElement("img"); 
+    weatherImage.classList = "card-body"; 
+    weatherImage.setAttribute("src", 'http://openweathermap.org/img/wn/'+ data.daily[i].weather[0].icon + '@2x.png' )
+    fiveDaysEl.appendChild(weatherImage);
+
 
     var Tempture = document.createElement("span"); 
     Tempture.classList = "card-body"; 
