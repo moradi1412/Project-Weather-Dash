@@ -6,9 +6,10 @@ var currentWindSpeed = document.getElementById ("wind-speed");
 var currentHumidity = document.getElementById ("humidity"); 
 var uvIndex = document.getElementById ("uv-index"); 
 var foreCastEl = document.getElementById("foreCast"); 
+var searchHistory = document.getElementById("searchHistory"); 
 
 const APIKey = "fd0ea7baffebc408619b7fb5206660c9"; 
-
+var cities = []; 
 
 
 var getCityName = function (event) {
@@ -18,14 +19,16 @@ var getCityName = function (event) {
 
     if (cityName) {
         getCurrentWeather(cityName);  
-        saveSearch(cityName);        
+        cities.push(cityName); 
     } else {
         alert ("please enter name of a city")
     } 
+    saveSearch();  
+    displaySearchHistory(); 
 }; 
 
-var saveSearch = function (cityName){
-    localStorage.setItem("cities", JSON.stringify(cityName)); 
+var saveSearch = function (){
+    localStorage.setItem("cities", JSON.stringify(cities)); 
 }
 
 
@@ -48,6 +51,21 @@ var getCurrentWeather = function (cityName) {
             alert("Unable to connect to GitHub");
         });
 };
+
+var displayCurrent = function (data, cityName)
+{ 
+    console.log(data);
+    var currentDate = moment().format('dddd MMM Do, YYYY'); 
+    $("#currentDay").html(cityName + " : " +   currentDate); 
+    currentImage.setAttribute('src', 'http://openweathermap.org/img/wn/'+ data.weather[0].icon + '@2x.png' ); 
+   
+    var currentTemp = data.main.temp ;
+    var currentHumd = data.main.humidity; 
+    var currentWind = data.wind.speed; 
+    currentTempEL.innerHTML = currentTemp + " F";
+    currentHumidity.innerHTML = currentHumd + " %"; 
+    currentWindSpeed.innerHTML = currentWind + " MPH"; 
+}
 
 var getUvIndex = function (lat, lon) { 
     console.log(lat);
@@ -92,6 +110,7 @@ var displayFive = function (data) {
     var weatherImage = document.createElement("img"); 
     weatherImage.classList = "card-body"; 
     weatherImage.setAttribute("src", 'http://openweathermap.org/img/wn/'+ data.daily[i].weather[0].icon + '@2x.png' )
+    console.log(weatherImage); 
     fiveDaysEl.appendChild(weatherImage);
 
 
@@ -113,25 +132,27 @@ var displayFive = function (data) {
           
 
     foreCastEl.appendChild(fiveDaysEl);
-     
-    
-   
 }
 };
 
+var displaySearchHistory = function () { 
+
+    var citiesName = localStorage.getItem("cities"); 
+    var citynames = JSON.parse(citiesName); 
+    console.log(citynames); 
+
+    for (let i = 0; i < citynames.length; i++) {
+
+        var searchHistoryEl = document.createElement('button'); 
+        searchHistoryEl.classList = "btn-light";
+        searchHistoryEl.setAttribute ("type", "submit"); 
+        searchHistoryEl.textContent = citynames[i]; 
+        searchHistory.appendChild(searchHistoryEl);
+        console.log(searchHistoryEl);
+        
+    }  
+}; 
+
+
 submitButtom.addEventListener("submit", getCityName); 
 
-var displayCurrent = function (data, cityName)
-{ 
-    console.log(data);
-    var currentDate = moment().format('dddd MMM Do, YYYY'); 
-    $("#currentDay").html(cityName + " : " +   currentDate); 
-    currentImage.setAttribute('src', 'http://openweathermap.org/img/wn/'+ data.weather[0].icon + '@2x.png' ); 
-   
-    var currentTemp = data.main.temp ;
-    var currentHumd = data.main.humidity; 
-    var currentWind = data.wind.speed; 
-    currentTempEL.innerHTML = currentTemp + " F";
-    currentHumidity.innerHTML = currentHumd + " %"; 
-    currentWindSpeed.innerHTML = currentWind + " MPH"; 
-}
