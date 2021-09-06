@@ -7,21 +7,28 @@ var currentHumidity = document.getElementById ("humidity");
 var uvIndex = document.getElementById ("uv-index"); 
 var foreCastEl = document.getElementById("foreCast"); 
 
-
 const APIKey = "fd0ea7baffebc408619b7fb5206660c9"; 
 
- 
+
 
 var getCityName = function (event) {
+
     event.preventDefault(); 
     var cityName = document.querySelector("#cityname").value; 
 
     if (cityName) {
-        getCurrentWeather(cityName);         
+        getCurrentWeather(cityName);  
+        saveSearch(cityName);        
     } else {
         alert ("please enter name of a city")
     } 
 }; 
+
+var saveSearch = function (cityName){
+    localStorage.setItem("cities", JSON.stringify(cityName)); 
+}
+
+
 var getCurrentWeather = function (cityName) { 
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityName +"&units=imperial&appid=" + APIKey)
         .then(function (response) {
