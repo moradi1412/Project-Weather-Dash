@@ -1,5 +1,6 @@
 //DOM ELEMENT 
 var submitButtom = document.getElementById("city-form"); 
+var currentImage = document.getElementById("currentImg")
 var currentTempEL = document.getElementById("temperature"); 
 var currentWindSpeed = document.getElementById ("wind-speed"); 
 var currentHumidity = document.getElementById ("humidity"); 
@@ -118,6 +119,8 @@ var displayCurrent = function (data, cityName)
     console.log(data);
     var currentDate = moment().format('dddd MMM Do, YYYY'); 
     $("#currentDay").html(cityName + " : " +   currentDate); 
+    currentImage.setAttribute('src', 'http://openweathermap.org/img/wn/'+ data.weather[0].icon + '@2x.png' ); 
+   
     var currentTemp = data.main.temp ;
     var currentHumd = data.main.humidity; 
     var currentWind = data.wind.speed; 

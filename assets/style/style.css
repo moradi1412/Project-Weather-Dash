@@ -19,3 +19,7 @@ header {
     font-size: 25px;
 
 }
+
+.currentImg {
+   max-width: max-content;
+}
