@@ -35,6 +35,7 @@
             <div class="col-12 col-md-8 ">
                 <div class="row border border-dark">
                     <h3 class="city-name mb-1 mt-2 bolder" id="current-city"></h3>
+                    <p id="currentDay" class="CityNameDate"></p>
                     <p>Temperature:   <span class="current" id="temperature"></span></p>
                     <p>Wind Speed:    <span class="current" id="wind-speed"></span></p>
                     <p>Humidity:      <span class="current" id="humidity"></span></p>                    
@@ -44,11 +45,13 @@
                 <div class="row"> 
                     <h3 class="mt-2 bolder"> 5 - Day Forecast: </h3>
                 </div>
-                <div id="foreCast" class="row"></div>
+                <div id="foreCast" class="row fiveforeCast"></div>
             </div>
         </div>
     </div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="./assets/Java/homepage.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 </body>
 
 </html>

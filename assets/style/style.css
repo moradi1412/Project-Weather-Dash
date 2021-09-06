@@ -14,4 +14,8 @@ header {
     display: block;
 }
 
+.CityNameDate {
+    font-weight: bolder;
+    font-size: 25px;
 
+}

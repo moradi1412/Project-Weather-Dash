@@ -8,6 +8,7 @@ var foreCastEl = document.getElementById("foreCast");
 
 
 const APIKey = "fd0ea7baffebc408619b7fb5206660c9"; 
+
  
 
 var getCityName = function (event) {
@@ -25,7 +26,7 @@ var getCurrentWeather = function (cityName) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
-                    displayCurrent(data);
+                    displayCurrent(data, cityName);
                     var lat = data.coord.lat; 
                     var lon = data.coord.lon; 
                     getUvIndex(lat,lon); 
@@ -68,22 +69,32 @@ var fiveDayforecase = function (lat, lon) {
 var displayFive = function (data) { 
     console.log(data); 
     for (let i = 0; i < 5 ; i++) {
+
+
+
     var fiveDaysEl = document.createElement("div"); 
-    fiveDaysEl.classList = "col-md-2 card"; 
+    fiveDaysEl.classList = "container col-md-2 card"; 
+
+  
+    var new_date = document.createElement("span"); 
+    new_date.classList= "card body"; 
+    new_date.textContent = moment.unix(data.daily[i + 1 ].dt).format("MMM D, YYYY");
+  
+    fiveDaysEl.appendChild(new_date);
 
     var Tempture = document.createElement("span"); 
-    Tempture.classList = "card-body text center"; 
+    Tempture.classList = "card-body"; 
     Tempture.textContent ="Temperature :  " +  data.daily[i].temp.day + "  F"; 
     fiveDaysEl.appendChild(Tempture);
 
     var windSpeed = document.createElement("span"); 
-    windSpeed.classList = "card-body text center"; 
+    windSpeed.classList = "card-body"; 
     windSpeed.textContent ="Wind-Speed :  " +  data.daily[i].wind_speed + "  MPH"; 
     fiveDaysEl.appendChild(windSpeed); 
     
 
     var Humidity = document.createElement("span"); 
-    Humidity.classList = "card-body text center"; 
+    Humidity.classList = "card-body"; 
     Humidity.textContent ="Humidity :  " +  data.daily[i].humidity + "  %"; 
     fiveDaysEl.appendChild(Humidity);
           
@@ -97,8 +108,11 @@ var displayFive = function (data) {
 
 submitButtom.addEventListener("submit", getCityName); 
 
-var displayCurrent = function (data){ 
+var displayCurrent = function (data, cityName)
+{ 
     console.log(data);
+    var currentDate = moment().format('dddd MMM Do, YYYY'); 
+    $("#currentDay").html(cityName + " : " +   currentDate); 
     var currentTemp = data.main.temp ;
     var currentHumd = data.main.humidity; 
     var currentWind = data.wind.speed; 
